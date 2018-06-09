@@ -34,17 +34,17 @@ app.get('/todos', (req, res) => {
 app.get('/todos/:id', (req, res) => {
   let id = req.params.id;
   if(!ObjectId.isValid(id)){
-    res.status(404).send('ID is not valid');
+    return res.status(404).send('ID is not valid');
   };
   Todo.findById(id).then((todo) => {
     if(!todo){
-      res.status(404).send('todo not found.')
+      return res.status(404).send('todo not found.')
     }
     res.send({todo});
-  },(e) => {
+  }).catch((err) => {
     res.status(400).send('');
-  })
-  })
+  });
+});
 
 
 app.listen(3000, () => {
