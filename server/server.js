@@ -20,30 +20,17 @@ app.post('/todos', (req, res) => {
   });
 });
 
+app.get('/todos', (req, res) => {
+  Todo.find().then((todos) => {
+    res.send({todos});
+  }).catch((err) => {
+    res.status(400).send(err);
+  })
+})
+
 
 app.listen(3000, () => {
   console.log('started on port 3000');
 })
-// let newTodo = new Todo({
-//   text: 'Cook dinner',
-//   completed: false
-// });
-//
-// newTodo.save().then((doc)=>{
-//   console.log('Saved todo',doc);
-// }).catch((err)=>{
-//   console.log(err);
-// })
 
-// let newUser = new User({
-//   name: 'ab',
-//   email: 'dd@g.com',
-//   age: 25
-// })
-//
-// newUser.save().then((doc) => {
-//   console.log(JSON.stringify(doc, undefined, 2));
-// }).catch((err)=>{
-//   console.log(err);
-// })
 module.exports = {app};
