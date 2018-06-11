@@ -8,14 +8,15 @@
     "test": "mocha server/**/*.test.js",
     "test-watch": "nodemon --exec \"npm test\""
   },
-  "engines":{
-    "node":"10.3.0"
+  "engines": {
+    "node": "10.3.0"
   },
   "author": "Mike Bai",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "lodash": "^4.17.10",
     "mongodb": "^3.0.10",
     "mongoose": "^5.1.4"
   },
