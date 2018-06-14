@@ -61,7 +61,7 @@ UserSchema.statics.findByToken = function(token){
 }
 
 UserSchema.statics.findByCredentials = function(email, password){
-  let User = this;
+  let user = this;
   return User.findOne({email}).then((user) => {
     if(!user){
       return Promise.reject();
@@ -103,9 +103,19 @@ UserSchema.methods.generateAuthToken = function(){
   let user = this;
   let access = 'auth';
   let token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
-  user.tokens = user.tokens.concat([{access, token}]);
+  user.tokens.push({access, token});
+  // user.tokens = user.tokens.concat([{access, token}]);
   return user.save().then(() => {
     return token;
+  })
+}
+
+UserSchema.methods.removeToken = function(token){
+  let user = this;
+  return user.update({
+    $pull:{
+      tokens:{ token }
+    }
   })
 }
 
